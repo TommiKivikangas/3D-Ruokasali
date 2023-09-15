@@ -18,6 +18,14 @@ public class EnemyAI : MonoBehaviour
         {
             Instance = this;
         }
+        
+        GameObject go = GameObject.Find("Player");
+        if (player == null)
+        {
+            player = go.transform;
+        } 
+
+
     }
 
     // Update is called once per frame
