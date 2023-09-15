@@ -5,6 +5,7 @@ using UnityEngine;
 public class ProjectileController : MonoBehaviour
 {
     private Vector3 firingPoint;
+    public float projDamage = 1f;
 
     [SerializeField]
     float projSpeed;
@@ -22,5 +23,14 @@ public class ProjectileController : MonoBehaviour
     void MoveProjectile()
     {
         transform.Translate(Vector3.forward * projSpeed * Time.deltaTime); // Moves the projectile.
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            EnemyAI.Instance.TakeDamage(projDamage);
+            Destroy(gameObject);
+        }
     }
 }
