@@ -29,7 +29,7 @@ public class ProjectileController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            EnemyAI.Instance.TakeDamage(projDamage);
+            other.gameObject.GetComponent<EnemyAI>().TakeDamage(projDamage);
             Destroy(gameObject);
         }
     }

@@ -14,16 +14,17 @@ public class EnemyAI : MonoBehaviour
 
     private void Awake()
     {
+        /*
         if (Instance == null)
         {
             Instance = this;
-        }
+        }*/
         
         GameObject go = GameObject.Find("Player");
         if (player == null)
         {
             player = go.transform;
-        } 
+        }
 
 
     }
