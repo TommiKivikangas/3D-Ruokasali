@@ -274,7 +274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabToSpawn: {fileID: 3029784964359072139, guid: 15e14d0d910ea442b8f3af90e4b56a58, type: 3}
-  spawnTime: 3
+  spawnTime: 5
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
