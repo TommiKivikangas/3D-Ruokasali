@@ -13,6 +13,10 @@ public class WeaponController : MonoBehaviour
     [SerializeField]
     float fireRate;
 
+    public AudioSource projSFX;
+    public AudioSource hitWoodSFX;
+    public AudioSource hitEnemySFX;
+
     private float lastTimeShot;
 
     public static WeaponController instance;
@@ -30,6 +34,7 @@ public class WeaponController : MonoBehaviour
     {
         if (lastTimeShot + fireRate <= Time.time)
         {
+            projSFX.Play();
             lastTimeShot = Time.time;
             GameObject go = Instantiate(projectile, firingPoint.position, firingPoint.rotation) as GameObject; // Instantiates the projectile.
             Destroy(go, 1); // Destroys the projectile after 1 second
