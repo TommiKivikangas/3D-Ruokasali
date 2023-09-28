@@ -60,6 +60,11 @@ public class ProjectileController : MonoBehaviour
         {
             Destroy(collision.gameObject);
         }
+
+        if (collision.gameObject.CompareTag("Moveable"))
+        {
+            collision.gameObject.GetComponent<Rigidbody>().AddExplosionForce(75, gameObject.transform.position, 1, 1);
+        }
     }
 }
 

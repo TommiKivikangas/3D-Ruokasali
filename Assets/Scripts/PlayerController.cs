@@ -26,6 +26,12 @@ public class PlayerController : MonoBehaviour
         // Moving the player
         Vector3 movement = new Vector3(movementX, rb.velocity.y, movementY);
         rb.velocity = movement * moveSpeed;
+
+        // Stopping walk particles if the player is not moving
+        if (rb.velocity.magnitude == 0)
+        {
+            ParticleController.instance.walkParticles.Stop();
+        }
     }
 
     // OnMove is called when Move input is used.
@@ -35,6 +41,8 @@ public class PlayerController : MonoBehaviour
 
         movementX = movementVector.x;
         movementY = movementVector.y;
+
+        ParticleController.instance.walkParticles.Play(); // Playing walk particles
     }
     void HandleRotationInput()
     {

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2950312456159243887}
   - component: {fileID: 7707786302521846456}
   - component: {fileID: 6700198231794037665}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -137,3 +137,4 @@ MonoBehaviour:
   enemyHealth: 2
   enemy: {fileID: 7707786302521846456}
   player: {fileID: 0}
+  objectCollider: {fileID: 0}

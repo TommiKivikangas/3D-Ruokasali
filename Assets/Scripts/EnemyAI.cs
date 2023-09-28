@@ -9,6 +9,7 @@ public class EnemyAI : MonoBehaviour
 
     public NavMeshAgent enemy;
     public Transform player;
+    public BoxCollider objectCollider;
 
     public static EnemyAI Instance;
 
@@ -25,8 +26,11 @@ public class EnemyAI : MonoBehaviour
         {
             player = go.transform;
         }
+    }
 
-
+    private void Start()
+    {
+        Physics.IgnoreLayerCollision(6, 7); // Makes the enemy ignore collisions for objects that are on the (Objects) layer
     }
 
     // Update is called once per frame
