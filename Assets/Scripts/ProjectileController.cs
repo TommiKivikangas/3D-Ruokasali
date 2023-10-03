@@ -63,7 +63,7 @@ public class ProjectileController : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Moveable"))
         {
-            collision.gameObject.GetComponent<Rigidbody>().AddExplosionForce(75, gameObject.transform.position, 1, 1);
+            collision.gameObject.GetComponent<Rigidbody>().AddExplosionForce(100, gameObject.transform.position, 1, 1);
         }
     }
 }
