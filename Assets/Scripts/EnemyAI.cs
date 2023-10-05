@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour
 {
     public float enemyHealth = 3;
+    public float enemySpeed = 2;
 
     public NavMeshAgent enemy;
     public Transform player;
@@ -37,6 +38,7 @@ public class EnemyAI : MonoBehaviour
     void Update()
     {
         enemy.SetDestination(player.position); // Makes enemy follow the player
+        gameObject.GetComponent<NavMeshAgent>().speed = enemySpeed; // Updates the enemy speed
 
         EnemyDeath();
     }
