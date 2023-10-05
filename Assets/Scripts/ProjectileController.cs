@@ -48,6 +48,7 @@ public class ProjectileController : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            ScoreSystem.instance.score = ScoreSystem.instance.score + 5;
             WeaponController.instance.hitEnemySFX.Play();
             collision.gameObject.GetComponent<EnemyAI>().TakeDamage(projDamage);
         }
@@ -58,6 +59,7 @@ public class ProjectileController : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Breakable"))
         {
+            ScoreSystem.instance.score = ScoreSystem.instance.score + 5;
             Destroy(collision.gameObject);
         }
 
