@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class ScoreSystem : MonoBehaviour
 {
 
     public float score;
     public float highScore;
+
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI highScoreText;
 
     public static ScoreSystem instance;
 
@@ -19,6 +24,7 @@ public class ScoreSystem : MonoBehaviour
     }
     void Start()
     {
+        score = PlayerPrefs.GetFloat("score");
         highScore = PlayerPrefs.GetFloat("highScore");
     }
 
@@ -29,11 +35,12 @@ public class ScoreSystem : MonoBehaviour
 
     void UpdateScore()
     {
-
-
-        if (PlayerPrefs.GetFloat("highScore") < score)
+        if (highScore < score)
         {
             PlayerPrefs.SetFloat("highScore", score);
         }
+        scoreText.text = "SCORE : " + score.ToString();
+        highScoreText.text = "HIGHSCORE : " + highScore.ToString();
+        
     }
 }
