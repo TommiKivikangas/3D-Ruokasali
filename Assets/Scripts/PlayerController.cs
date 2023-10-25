@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using static UnityEngine.GraphicsBuffer;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class PlayerController : MonoBehaviour
 
     Animator animator;
 
+    public TextMeshProUGUI hpText;
     public float moveSpeed = 8f;
     private float movementX;
     private float movementY;
@@ -42,6 +44,8 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("isRunning", false);
         }
+
+        hpText.text = "HEALTH : " + playerHp.ToString();
     }
     private void FixedUpdate()
     {
