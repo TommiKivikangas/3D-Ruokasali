@@ -9,14 +9,15 @@ using TMPro;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody rb;
-
     Animator animator;
 
-    public TextMeshProUGUI hpText;
     public float moveSpeed = 8f;
     private float movementX;
     private float movementY;
     private float playerHp = 3;
+
+    public AudioSource stepSFX;
+    public TextMeshProUGUI hpText;
 
     public static PlayerController instance;
 
@@ -42,6 +43,7 @@ public class PlayerController : MonoBehaviour
         // Stopping run animation if player isnt moving
         if (rb.velocity.magnitude == 0)
         {
+            stepSFX.Stop();
             animator.SetBool("isRunning", false);
         }
 
@@ -67,6 +69,7 @@ public class PlayerController : MonoBehaviour
         movementX = movementVector.x;
         movementY = movementVector.y;
 
+        stepSFX.Play();
         animator.SetBool("isRunning", true);
         ParticleController.instance.walkParticles.Play(); // Playing walk particles
     }
