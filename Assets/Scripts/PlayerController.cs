@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
     {
         if (playerHp <= 0)
         {
-            SceneManager.LoadScene("Finish_menu");
+            SceneManager.LoadScene("defeat_menu");
         }
     }
     public void OnFire()
