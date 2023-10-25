@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
 {
     private Rigidbody rb;
 
+    Animator animator;
+
     public float moveSpeed = 8f;
     private float movementX;
     private float movementY;
@@ -26,6 +28,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        animator = GetComponent<Animator>();
         rb = gameObject.GetComponent<Rigidbody>();
     }
 
@@ -33,6 +36,12 @@ public class PlayerController : MonoBehaviour
     {
         HandleRotationInput();
         PlayerDeath();
+
+        // Stopping run animation if player isnt moving
+        if (rb.velocity.magnitude == 0)
+        {
+            animator.SetBool("isRunning", false);
+        }
     }
     private void FixedUpdate()
     {
@@ -40,7 +49,6 @@ public class PlayerController : MonoBehaviour
         Vector3 movement = new Vector3(movementX, rb.velocity.y, movementY);
         rb.velocity = movement * moveSpeed;
 
-        // Stopping walk particles if the player is not moving
         if (rb.velocity.magnitude == 0)
         {
             ParticleController.instance.walkParticles.Stop();
@@ -55,6 +63,7 @@ public class PlayerController : MonoBehaviour
         movementX = movementVector.x;
         movementY = movementVector.y;
 
+        animator.SetBool("isRunning", true);
         ParticleController.instance.walkParticles.Play(); // Playing walk particles
     }
     void HandleRotationInput()
