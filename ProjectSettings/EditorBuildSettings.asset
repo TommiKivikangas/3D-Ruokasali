@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/finish_menu.unity
     guid: 77e35218927d56744934ecc1d5876e14
+  - enabled: 1
+    path: Assets/Scenes/defeat_menu.unity
+    guid: 36b16b2531be64853a69faf20de54ccb
   m_configObjects: {}
