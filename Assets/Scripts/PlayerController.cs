@@ -2,24 +2,52 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using static UnityEngine.GraphicsBuffer;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody rb;
+    Animator animator;
 
     public float moveSpeed = 8f;
     private float movementX;
     private float movementY;
+    private float playerHp = 3;
+
+    public AudioSource stepSFX;
+    public TextMeshProUGUI hpText;
+
+    public static PlayerController instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
 
     void Start()
     {
+        animator = GetComponent<Animator>();
         rb = gameObject.GetComponent<Rigidbody>();
     }
 
     void Update()
     {
-        HandleRotationInput();    
+        HandleRotationInput();
+        PlayerDeath();
+
+        // Stopping run animation if player isnt moving
+        if (rb.velocity.magnitude == 0)
+        {
+            stepSFX.Stop();
+            animator.SetBool("isRunning", false);
+        }
+
+        hpText.text = "HEALTH : " + playerHp.ToString();
     }
     private void FixedUpdate()
     {
@@ -27,7 +55,6 @@ public class PlayerController : MonoBehaviour
         Vector3 movement = new Vector3(movementX, rb.velocity.y, movementY);
         rb.velocity = movement * moveSpeed;
 
-        // Stopping walk particles if the player is not moving
         if (rb.velocity.magnitude == 0)
         {
             ParticleController.instance.walkParticles.Stop();
@@ -42,6 +69,8 @@ public class PlayerController : MonoBehaviour
         movementX = movementVector.x;
         movementY = movementVector.y;
 
+        stepSFX.Play();
+        animator.SetBool("isRunning", true);
         ParticleController.instance.walkParticles.Play(); // Playing walk particles
     }
     void HandleRotationInput()
@@ -53,15 +82,19 @@ public class PlayerController : MonoBehaviour
         {
             transform.LookAt(new Vector3(hit.point.x, transform.position.y, hit.point.z));
         }
-
-        //Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.z, 10);
-        //Vector3 lookPos = Camera.main.ScreenToWorldPoint(mousePos);
-        //lookPos = lookPos - transform.position;
-        //float angle = Mathf.Atan2(lookPos.z, lookPos.x) * Mathf.Rad2Deg;
-        //transform.rotation = Quaternion.AngleAxis(angle, Vector3.down); // Turns Right
-        //transform.rotation = Quaternion.AngleAxis(angle, Vector3.up); //Turns Left
     }
 
+    public void PlayerTakeDamage(float damage)
+    {
+        playerHp = playerHp - damage;
+    }
+    public void PlayerDeath()
+    {
+        if (playerHp <= 0)
+        {
+            SceneManager.LoadScene("defeat_menu");
+        }
+    }
     public void OnFire()
     {
         WeaponController.instance.Shoot();
