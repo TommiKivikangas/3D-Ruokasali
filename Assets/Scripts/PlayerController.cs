@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using static UnityEngine.GraphicsBuffer;
 using TMPro;
+using Unity.VisualScripting;
 
 public class PlayerController : MonoBehaviour
 {
@@ -99,4 +100,13 @@ public class PlayerController : MonoBehaviour
     {
         WeaponController.instance.Shoot();
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (EnemyWaves.instance.waveCount == 3 & collision.gameObject.CompareTag("Exit"))
+        {
+            SceneManager.LoadScene("finish_menu");
+        }
+    }
+
 }
