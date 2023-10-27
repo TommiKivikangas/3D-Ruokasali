@@ -9,7 +9,7 @@ public class EnemyAI : MonoBehaviour
     public float enemySpeed;
 
     public NavMeshAgent enemy;
-    private Transform player;
+    public Transform player;
     public BoxCollider objectCollider;
 
     public static EnemyAI Instance;
@@ -21,8 +21,12 @@ public class EnemyAI : MonoBehaviour
         {
             Instance = this;
         }
+        
         GameObject go = GameObject.Find("Player");
-        player = go.transform;
+        if (player == null)
+        {
+            player = go.transform;
+        }
     }
 
     private void Start()
@@ -47,9 +51,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (enemyHealth <= 0)
         {
-            PlayerController.instance.killSFX.Play();
-            PlayerPrefs.SetFloat("score", ScoreSystem.instance.score + 15);
-            EnemyWaves.instance.enemyCount -= 1;
+            ScoreSystem.instance.score = ScoreSystem.instance.score + 15;
             Destroy(gameObject);
         }
     }
@@ -59,8 +61,7 @@ public class EnemyAI : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             PlayerController.instance.PlayerTakeDamage(1);
-            PlayerPrefs.SetFloat("score", ScoreSystem.instance.score - 15);
-            EnemyWaves.instance.enemyCount -= 1;
+            ScoreSystem.instance.score = ScoreSystem.instance.score - 15;
             Destroy(gameObject);
         }
     }

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro;
 
 public class WaveSystem : MonoBehaviour
 {
@@ -13,21 +12,10 @@ public class WaveSystem : MonoBehaviour
     public Transform spawn1, spawn2, spawn3, spawn4;
 
     public GameObject enemy;
-    public TextMeshProUGUI victoryText;
 
-    public bool wave1Finished = false;
-    public bool wave2Finished = false;
-    public bool wave3Finished = false;
-
-    public static WaveSystem instance;
-
-    private void Awake()
-    {
-        if(instance == null)
-        {
-            instance = this;
-        }
-    }
+    private bool wave1Finished = false;
+    private bool wave2Finished = false;
+    private bool wave3Finished = false;
 
     void Start()
     {
@@ -92,7 +80,6 @@ public class WaveSystem : MonoBehaviour
             EnemyAI.Instance.enemySpeed = 1;
             EnemySpawn();
             wave3Finished = true;
-            victoryText.text = "YOU WON!\nhead to the main door";
             yield return null;
         }
     }

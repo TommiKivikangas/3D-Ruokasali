@@ -9,7 +9,6 @@ TagManager:
   - Activator
   - Ground
   - Moveable
-  - Exit
   layers:
   - Default
   - TransparentFX

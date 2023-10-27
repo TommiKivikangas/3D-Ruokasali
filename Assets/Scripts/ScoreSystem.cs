@@ -39,7 +39,6 @@ public class ScoreSystem : MonoBehaviour
         {
             PlayerPrefs.SetFloat("highScore", score);
         }
-        score = PlayerPrefs.GetFloat("score");
         scoreText.text = "SCORE : " + score.ToString();
         highScoreText.text = "HIGHSCORE : " + highScore.ToString();
         
