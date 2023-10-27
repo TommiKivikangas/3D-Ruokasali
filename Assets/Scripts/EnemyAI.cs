@@ -22,10 +22,7 @@ public class EnemyAI : MonoBehaviour
             Instance = this;
         }
         GameObject go = GameObject.Find("Player");
-        if (player == null)
-        {
-            player = go.transform;
-        }
+        player = go.transform;
     }
 
     private void Start()
@@ -50,6 +47,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (enemyHealth <= 0)
         {
+            PlayerController.instance.killSFX.Play();
             PlayerPrefs.SetFloat("score", ScoreSystem.instance.score + 15);
             EnemyWaves.instance.enemyCount -= 1;
             Destroy(gameObject);

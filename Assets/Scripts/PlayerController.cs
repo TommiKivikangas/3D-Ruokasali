@@ -17,8 +17,10 @@ public class PlayerController : MonoBehaviour
     private float movementY;
     private float playerHp = 3;
 
+    public AudioSource killSFX;
     public AudioSource stepSFX;
     public TextMeshProUGUI hpText;
+    public Collider groundCol;
 
     public static PlayerController instance;
 
@@ -40,13 +42,8 @@ public class PlayerController : MonoBehaviour
     {
         HandleRotationInput();
         PlayerDeath();
+        PlayerAudioAndAnim();
 
-        // Stopping run animation if player isnt moving
-        if (rb.velocity.magnitude == 0)
-        {
-            stepSFX.Stop();
-            animator.SetBool("isRunning", false);
-        }
 
         hpText.text = "HEALTH : " + playerHp.ToString();
     }
@@ -55,11 +52,6 @@ public class PlayerController : MonoBehaviour
         // Moving the player
         Vector3 movement = new Vector3(movementX, rb.velocity.y, movementY);
         rb.velocity = movement * moveSpeed;
-
-        if (rb.velocity.magnitude == 0)
-        {
-            ParticleController.instance.walkParticles.Stop();
-        }
     }
 
     // OnMove is called when Move input is used.
@@ -72,7 +64,6 @@ public class PlayerController : MonoBehaviour
 
         stepSFX.Play();
         animator.SetBool("isRunning", true);
-        ParticleController.instance.walkParticles.Play(); // Playing walk particles
     }
     void HandleRotationInput()
     {
@@ -81,7 +72,11 @@ public class PlayerController : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-            transform.LookAt(new Vector3(hit.point.x, transform.position.y, hit.point.z));
+            if(groundCol.Raycast(ray, out hit, 100))
+            {
+                transform.LookAt(new Vector3(hit.point.x, transform.position.y, hit.point.z));
+            }
+            
         }
     }
 
@@ -101,9 +96,25 @@ public class PlayerController : MonoBehaviour
         WeaponController.instance.Shoot();
     }
 
+    public void PlayerAudioAndAnim()
+    {
+        // If the player is moving start running sound effect & running animation.
+        if (rb.velocity.magnitude != 0)
+        {
+            animator.SetBool("isRunning", true);
+        }
+        else
+        {
+            stepSFX.Stop();
+            animator.SetBool("isRunning", false);
+        }
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
-        if (EnemyWaves.instance.waveCount == 3 & collision.gameObject.CompareTag("Exit"))
+        // When all waves have finished and all enemies are defeated and the player collides with an object tagged "Exit"
+        // the scene will change to finish_menu
+        if (EnemyWaves.instance.waveCount == 3 & collision.gameObject.CompareTag("Exit")) 
         {
             SceneManager.LoadScene("finish_menu");
         }
