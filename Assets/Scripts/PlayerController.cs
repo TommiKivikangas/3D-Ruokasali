@@ -54,11 +54,6 @@ public class PlayerController : MonoBehaviour
         // Moving the player
         Vector3 movement = new Vector3(movementX, rb.velocity.y, movementY);
         rb.velocity = movement * moveSpeed;
-
-        if (rb.velocity.magnitude == 0)
-        {
-            ParticleController.instance.walkParticles.Stop();
-        }
     }
 
     // OnMove is called when Move input is used.
@@ -71,7 +66,6 @@ public class PlayerController : MonoBehaviour
 
         stepSFX.Play();
         animator.SetBool("isRunning", true);
-        ParticleController.instance.walkParticles.Play(); // Playing walk particles
     }
     void HandleRotationInput()
     {
