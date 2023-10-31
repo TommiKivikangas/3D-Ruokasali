@@ -51,7 +51,8 @@ public class EnemyAI : MonoBehaviour
     {
         if (enemyHealth <= 0)
         {
-            ScoreSystem.instance.score = ScoreSystem.instance.score + 15;
+            PlayerPrefs.SetFloat("score", ScoreSystem.instance.score + 15);
+            EnemyWaves.instance.enemyCount -= 1;
             Destroy(gameObject);
         }
     }
@@ -61,7 +62,8 @@ public class EnemyAI : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             PlayerController.instance.PlayerTakeDamage(1);
-            ScoreSystem.instance.score = ScoreSystem.instance.score - 15;
+            EnemyWaves.instance.enemyCount -= 1;
+            PlayerPrefs.SetFloat("score", ScoreSystem.instance.score - 15);
             Destroy(gameObject);
         }
     }

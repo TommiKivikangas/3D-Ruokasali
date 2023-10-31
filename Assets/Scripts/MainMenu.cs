@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour
     public void Play()
     {
         PlayerPrefs.SetFloat("score", 0);
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("game_scene");
     }
     public void Quit()
     {

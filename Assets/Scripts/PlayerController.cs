@@ -40,11 +40,16 @@ public class PlayerController : MonoBehaviour
         HandleRotationInput();
         PlayerDeath();
 
-        // Stopping run animation if player isnt moving
-        if (rb.velocity.magnitude == 0)
+        // Playing & stopping running animation
+        if (rb.velocity.magnitude > 0.01)
         {
-            stepSFX.Stop();
+            animator.SetBool("isRunning", true);
+            stepSFX.enabled = true;
+        }
+        if (rb.velocity.magnitude < 0.01)
+        {
             animator.SetBool("isRunning", false);
+            stepSFX.enabled = false;
         }
 
         hpText.text = "HEALTH : " + playerHp.ToString();
@@ -63,9 +68,6 @@ public class PlayerController : MonoBehaviour
 
         movementX = movementVector.x;
         movementY = movementVector.y;
-
-        stepSFX.Play();
-        animator.SetBool("isRunning", true);
     }
     void HandleRotationInput()
     {
@@ -92,5 +94,13 @@ public class PlayerController : MonoBehaviour
     public void OnFire()
     {
         WeaponController.instance.Shoot();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Exit") && EnemyWaves.instance.waveCount == 3)
+        {
+            SceneManager.LoadScene("finish_menu");
+        }
     }
 }
