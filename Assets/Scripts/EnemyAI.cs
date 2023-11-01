@@ -53,6 +53,7 @@ public class EnemyAI : MonoBehaviour
         {
             PlayerPrefs.SetFloat("score", ScoreSystem.instance.score + 15);
             EnemyWaves.instance.enemyCount -= 1;
+            PlayerController.instance.killSFX.Play();
             Destroy(gameObject);
         }
     }
@@ -62,6 +63,7 @@ public class EnemyAI : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             PlayerController.instance.PlayerTakeDamage(1);
+            PlayerController.instance.killSFX.Play();
             EnemyWaves.instance.enemyCount -= 1;
             PlayerPrefs.SetFloat("score", ScoreSystem.instance.score - 15);
             Destroy(gameObject);

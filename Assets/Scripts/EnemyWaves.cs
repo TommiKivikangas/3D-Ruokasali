@@ -44,6 +44,7 @@ public class EnemyWaves : MonoBehaviour
         // Wave 1
         if(waveCount == 0)
         {
+            yield return new WaitForSeconds(5);
             Instantiate(enemy, spawn1);
             enemyCount += 1;
             yield return new WaitForSeconds(spawnRate);

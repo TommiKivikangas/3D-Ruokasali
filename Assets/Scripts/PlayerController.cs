@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private float movementY;
     private float playerHp = 3;
 
+    public AudioSource killSFX;
     public AudioSource stepSFX;
     public TextMeshProUGUI hpText;
 
