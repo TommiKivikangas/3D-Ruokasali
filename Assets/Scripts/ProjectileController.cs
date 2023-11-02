@@ -52,15 +52,15 @@ public class ProjectileController : MonoBehaviour
             WeaponController.instance.hitEnemySFX.Play();
             collision.gameObject.GetComponent<EnemyAI>().TakeDamage(projDamage);
         }
+        else if (collision.gameObject.CompareTag("Breakable"))
+        {
+            WeaponController.instance.breakSFX.Play();
+            PlayerPrefs.SetFloat("score", ScoreSystem.instance.score + 5);
+            Destroy(collision.gameObject);
+        }
         else
         {
             WeaponController.instance.hitWoodSFX.Play();
-        }
-
-        if (collision.gameObject.CompareTag("Breakable"))
-        {
-            PlayerPrefs.SetFloat("score", ScoreSystem.instance.score + 5);
-            Destroy(collision.gameObject);
         }
 
         if (collision.gameObject.CompareTag("Moveable"))

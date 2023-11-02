@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private float movementY;
     private float playerHp = 3;
 
+    public AudioSource gruntSFX;
     public AudioSource killSFX;
     public AudioSource stepSFX;
     public TextMeshProUGUI hpText;
@@ -83,6 +84,8 @@ public class PlayerController : MonoBehaviour
 
     public void PlayerTakeDamage(float damage)
     {
+        HealthBar.instance.hpBar.value -= 0.33f;
+        gruntSFX.Play();
         playerHp = playerHp - damage;
     }
     public void PlayerDeath()

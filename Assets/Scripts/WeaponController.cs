@@ -13,6 +13,7 @@ public class WeaponController : MonoBehaviour
     [SerializeField]
     float fireRate;
 
+    public AudioSource breakSFX;
     public AudioSource projSFX;
     public AudioSource hitWoodSFX;
     public AudioSource hitEnemySFX;
